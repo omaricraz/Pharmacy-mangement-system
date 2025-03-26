@@ -1,0 +1,49 @@
+<!-- pharmacy/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pharmacy Management</title>
+    <!-- Bootstrap CSS (you can change to a CDN or local file if needed) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">Pharmacy Management</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'inventory_list' %}">Medicine</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'customer-list' %}">Customers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create_sale' %}">Sell</a>
+                </li>
+                <li class="nav-item">
+    
+                    <a class="nav-link" href="{% url 'sale_list' %}">Sales list</a>
+                </li>
+               
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        &copy; 2025 Pharmacy Management. All Rights Reserved.
+    </footer>
+
+    <!-- Bootstrap JS (you can change to a CDN or local file if needed) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

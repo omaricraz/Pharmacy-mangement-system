@@ -1,0 +1,38 @@
+{% extends 'pharmacy/base.html' %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+    <h1>Medicine</h1>
+    
+    <a href="{% url 'medicine_add' %}">Add New Medicine</a>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Manufacturer</th>
+                <th>Batch Number</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Expiry Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medicine in medicines %}
+            <tr>
+                <td>{{ medicine.name }}</td>
+                <td>{{ medicine.manufacturer }}</td>
+                <td>{{ medicine.batch_number }}</td>
+                <td>{{ medicine.quantity }}</td>
+                <td>{{ medicine.price }}</td>
+                <td>{{ medicine.expiry_date }}</td>
+                <td>
+                    <a href="{% url 'medicine_edit' medicine.id %}">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

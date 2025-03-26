@@ -1,0 +1,13 @@
+{% extends 'pharmacy/base.html' %}
+
+{% block title %}Edit Medicine{% endblock %}
+
+{% block content %}
+    <h1>Edit Medicine</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+{% endblock %}

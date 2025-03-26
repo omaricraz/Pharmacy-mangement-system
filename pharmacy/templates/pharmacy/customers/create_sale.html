@@ -1,0 +1,33 @@
+{% extends 'pharmacy/base.html' %}
+
+{% block title %}Create Sale{% endblock %}
+
+{% block content %}
+    <h1>Sell</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div>
+            <label for="{{ form.medicine.id_for_label }}">Medicine</label>
+            {{ form.medicine }}
+        </div>
+
+        <div>
+            <label for="{{ form.customer.id_for_label }}">Customer</label>
+            {{ form.customer }}
+        </div>
+
+        <div>
+            <label for="{{ form.quantity.id_for_label }}">Quantity</label>
+            {{ form.quantity }}
+        </div>
+
+        <div>
+            <label for="{{ form.total_price.id_for_label }}">Total Price</label>
+            {{ form.total_price }}
+        </div>
+
+        <button type="submit">Create Sale</button>
+    </form>
+{% endblock %}
