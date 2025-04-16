@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Medicine, Supplier, PurchaseOrder, Customer, Sale, Expense
-from .forms import MedicineForm, SupplierForm, PurchaseOrderForm, CustomerForm, SaleForm, ExpenseForm
+from urllib import request
+from django.shortcuts import render, redirect
+from .models import Customer, Medicine, Sale
+from .forms import MedicineForm, CustomerForm, SaleForm 
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -12,33 +13,32 @@ def dashboard(request):
     return render(request, 'pharmacy/dashboard.html', context)
 
 
-
-class InventoryListView(ListView):
+class MedicineListView(ListView):
     model = Medicine
-    template_name = 'pharmacy/inventory/inventory_list.html'  # Path to the template
+    template_name = 'pharmacy/medicine/medicine_list.html'  # Path to the template
     context_object_name = 'medicines'    
 
 # Create Medicine View
 class MedicineCreateView(CreateView):
     model = Medicine
     form_class = MedicineForm
-    template_name = 'pharmacy/inventory/create_medicine.html'
+    template_name = 'pharmacy/medicine/medicine_create.html'
     success_url = reverse_lazy('inventory_list')
 
 # Edit Medicine View
 class MedicineUpdateView(UpdateView):
     model = Medicine
     form_class = MedicineForm
-    template_name = 'pharmacy/inventory/edit_medicine.html'
+    template_name = 'pharmacy/medicine/medicine_edit.html'
     success_url = reverse_lazy('inventory_list')
 
 def create_sale(request):
     if request.method == 'POST':
-        form = SaleForm(request.POST)
+        form = SaleForm(request.POST, request.FILES)
         if form.is_valid():
             medicine = form.cleaned_data['medicine']
             quantity = form.cleaned_data['quantity']
-            customer = form.cleaned_data['customer']
+            
 
             # Calculate the total price for the sale
             total_price = medicine.price * quantity
@@ -57,21 +57,32 @@ def create_sale(request):
     else:
         form = SaleForm()
 
-    return render(request, 'pharmacy/customers/create_sale.html', {'form': form})
+    return render(request, 'pharmacy/sales/sale_create.html', {'form': form})
 
 
 class SaleListView(ListView):
     model = Sale
-    template_name = 'pharmacy/sale_list.html'
+    template_name = 'pharmacy/sales/sale_list.html'
     context_object_name = 'sales'
+    
 
 
+# Delete View for sales-list
+class saleslistdelete(DeleteView):
+    model = Sale
+    template_name = 'pharmacy/sales/sale_delete.html'
+    success_url = reverse_lazy('sale_list')        
+     
+  
 
-# List View (Read)
+
+# CustomerList View (Read)
 class CustomerListView(ListView):
     model = Customer
     template_name = 'pharmacy/customers/customer_list.html'
     context_object_name = 'customers'
+
+    
 
 # Create View
 class CustomerCreateView(CreateView):
@@ -92,3 +103,7 @@ class CustomerDeleteView(DeleteView):
     model = Customer
     template_name = 'pharmacy/customers/customer_confirm_delete.html'
     success_url = reverse_lazy('customer-list')    
+
+
+
+        

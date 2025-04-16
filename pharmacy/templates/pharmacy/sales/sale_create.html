@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Sell</h1>
 
-    <form method="POST">
+    <form method="POST"  enctype="multipart/form-data">
         {% csrf_token %}
         
         <div>
@@ -14,8 +14,8 @@
         </div>
 
         <div>
-            <label for="{{ form.customer.id_for_label }}">Customer</label>
-            {{ form.customer }}
+            <label for="{{ form.Customer.id_for_label }}">Customer</label>
+            {{ form.Customer }}
         </div>
 
         <div>
@@ -24,8 +24,8 @@
         </div>
 
         <div>
-            <label for="{{ form.total_price.id_for_label }}">Total Price</label>
-            {{ form.total_price }}
+            <label for="{{ form.prescription.id_for_label }}">Upload Prescription</label>
+            {{ form.prescription }}
         </div>
 
         <button type="submit">Create Sale</button>

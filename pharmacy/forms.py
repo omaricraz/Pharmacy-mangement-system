@@ -1,19 +1,12 @@
 from django import forms
-from .models import Medicine, Supplier, PurchaseOrder, Customer, Sale, Expense
+from .models import Medicine, Customer, Sale
+
+
+
 
 class MedicineForm(forms.ModelForm):
     class Meta:
         model = Medicine
-        fields = '__all__'
-
-class SupplierForm(forms.ModelForm):
-    class Meta:
-        model = Supplier
-        fields = '__all__'
-
-class PurchaseOrderForm(forms.ModelForm):
-    class Meta:
-        model = PurchaseOrder
         fields = '__all__'
 
 class CustomerForm(forms.ModelForm):
@@ -24,10 +17,7 @@ class CustomerForm(forms.ModelForm):
 class SaleForm(forms.ModelForm):
     class Meta:
         model = Sale
-        fields = ['customer', 'medicine', 'quantity']
+        fields = ['Customer', 'medicine', 'quantity','prescription']
 
 
-class ExpenseForm(forms.ModelForm):
-    class Meta:
-        model = Expense
-        fields = '__all__'
+

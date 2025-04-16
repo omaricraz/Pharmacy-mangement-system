@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.urls import include, path
-from pharmacy.views import dashboard  # Import the dashboard_view function
+from django.conf import settings
+from django.conf.urls.static import static
 from pharmacy.views import (
      
-    CustomerListView, InventoryListView, create_sale, MedicineCreateView, MedicineUpdateView,
-      SaleListView, CustomerCreateView,  CustomerDeleteView, CustomerUpdateView
+    CustomerListView, MedicineListView, create_sale, MedicineCreateView, MedicineUpdateView,
+      SaleListView, CustomerCreateView,  CustomerDeleteView, CustomerUpdateView, saleslistdelete, dashboard
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,18 +18,21 @@ urlpatterns = [
     path('customers/<int:pk>/edit/', CustomerUpdateView.as_view(), name='customer-update'),
     path('customers/<int:pk>/delete/', CustomerDeleteView.as_view(), name='customer-delete'),
 
-    path('inventory/', InventoryListView.as_view(), name='inventory_list'),
+    path('Medicine/', MedicineListView.as_view(), name='medicine_list'),
+    path('Medicine/add/', MedicineCreateView.as_view(), name='medicine_add'),
+    path('Medicine/<int:pk>/edit/', MedicineUpdateView.as_view(), name='medicine_edit'),
+
+
     path('create-sale/', create_sale, name='create_sale'),
-
-
-    path('inventory/add/', MedicineCreateView.as_view(), name='medicine_add'),
-    path('inventory/<int:pk>/edit/', MedicineUpdateView.as_view(), name='medicine_edit'),
-
-
     path('sales/', SaleListView.as_view(), name='sale_list'),
+    path('sales/<int:pk>/delete/', saleslistdelete.as_view(), name='sale_delete'),
 
 
-
+    
 
    
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
