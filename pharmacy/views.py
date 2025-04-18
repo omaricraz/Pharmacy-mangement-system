@@ -20,14 +20,14 @@ class MedicineCreateView(CreateView):
     model = Medicine
     form_class = MedicineForm
     template_name = 'pharmacy/medicine/medicine_create.html'
-    success_url = reverse_lazy('inventory_list')
+    success_url = reverse_lazy('medicine_list')
 
 # Edit Medicine View
 class MedicineUpdateView(UpdateView):
     model = Medicine
     form_class = MedicineForm
     template_name = 'pharmacy/medicine/medicine_edit.html'
-    success_url = reverse_lazy('inventory_list')
+    success_url = reverse_lazy('medicine_list')
 
 def create_sale(request):
     if request.method == 'POST':
