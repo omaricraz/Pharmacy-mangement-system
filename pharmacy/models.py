@@ -41,3 +41,8 @@ class Sale(models.Model):
         return f"{self.customer.name} - {self.medicine.name}"
     
 
+class Finance(models.Model):
+    Revenue = models.IntegerField()
+    
+    
+

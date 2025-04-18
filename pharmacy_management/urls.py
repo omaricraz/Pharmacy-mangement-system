@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 from pharmacy.views import (
      
     CustomerListView, MedicineListView, create_sale, MedicineCreateView, MedicineUpdateView,
-      SaleListView, CustomerCreateView,  CustomerDeleteView, CustomerUpdateView, saleslistdelete, dashboard
+      SaleListView, CustomerCreateView,  CustomerDeleteView, CustomerUpdateView, saleslistdelete, dashboard,
+
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,8 +28,6 @@ urlpatterns = [
     path('sales/', SaleListView.as_view(), name='sale_list'),
     path('sales/<int:pk>/delete/', saleslistdelete.as_view(), name='sale_delete'),
 
-
-    
 
    
 ]

@@ -1,16 +1,13 @@
 from urllib import request
 from django.shortcuts import render, redirect
-from .models import Customer, Medicine, Sale
+from .models import Customer, Medicine, Sale, Finance
 from .forms import MedicineForm, CustomerForm, SaleForm 
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 
 # ===== Dashboard =====
 def dashboard(request):
-    medicines = Medicine.objects.all()
-    customers = Customer.objects.all()
-    context = {'medicines': medicines, 'customers': customers}
-    return render(request, 'pharmacy/dashboard.html', context)
+    return render(request, 'pharmacy/dashboard.html')
 
 
 class MedicineListView(ListView):
@@ -43,6 +40,8 @@ def create_sale(request):
             # Calculate the total price for the sale
             total_price = medicine.price * quantity
 
+            # Calculate monthly revenue
+            monthly_revenue =+ total_price
             # Create a Sale record
             sale = form.save(commit=False)
             sale.prices = medicine.price  # Assign price
@@ -103,6 +102,7 @@ class CustomerDeleteView(DeleteView):
     model = Customer
     template_name = 'pharmacy/customers/customer_confirm_delete.html'
     success_url = reverse_lazy('customer-list')    
+
 
 
 

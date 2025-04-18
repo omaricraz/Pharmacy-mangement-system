@@ -1,0 +1,17 @@
+commit dfb3f91347aed7f766fc4622bb0ffa3611f831c1 (HEAD -> stable_pharmacy, origin/stable_pharmacy, origin/main, finance_feature)
+Author: omaricraz <omaricraz@gmail.com>
+Date:   Wed Apr 16 23:17:59 2025 +0300
+
+    "early stage"
+
+commit a7af340dcaced998c56b91809c7d5fc9e191a4d9
+Author: omaricraz <omaricraz@gmail.com>
+Date:   Wed Mar 26 14:22:01 2025 +0300
+
+    Initial commit
+
+commit af086ddef63b6028de2e44ff34b23bd9f18b62f6
+Author: omaricraz <125497027+omaricraz@users.noreply.github.com>
+Date:   Wed Mar 26 14:20:18 2025 +0300
+
+    Create hello world

@@ -1,21 +1,20 @@
 {% extends 'pharmacy/base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1>Welcome to Pharmacy Management</h1>
-    <div class="row mt-4">
-        <div class="col-md-3">
-            <a href="{% url 'customer-list' %}" class="btn btn-primary w-100"> Customers</a>
+
+   
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-blue-100 p-4 rounded-xl shadow">
+            <h2 class="text-xl font-semibold">Revenue</h2>
+            <p class="text-3xl font-bold text-blue-700">$150</p>
         </div>
-        <div class="col-md-3">
-            <a href="{% url 'medicine_list' %}" class="btn btn-success w-100"> Medicine</a>
+        <div class="bg-red-100 p-4 rounded-xl shadow">
+            <h2 class="text-xl font-semibold">Expenses</h2>
+            <p class="text-3xl font-bold text-red-700">$30</p>
         </div>
-        <div class="col-md-3">
-            <a href="{% url 'create_sale' %}" class="btn btn-success w-100">Create Sale</a>
+        <div class="bg-green-100 p-4 rounded-xl shadow">
+            <h2 class="text-xl font-semibold">Tickets</h2>
+            <p class="text-3xl font-bold text-green-700">15</p>
         </div>
-        <div class="col-md-3">
-            <a href="{% url 'sale_list' %}" class="btn btn-success w-100">Sales_list</a>
-        </div>
-    </div>
-</div>
+    
 {% endblock %}
