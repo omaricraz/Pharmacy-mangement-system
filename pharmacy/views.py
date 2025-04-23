@@ -7,7 +7,31 @@ from django.urls import reverse_lazy
 
 # ===== Dashboard =====
 def dashboard(request):
-    return render(request, 'pharmacy/dashboard.html')
+
+    expense_entries = Medicine.objects.all()
+    total_expenses = 0
+    for expense in expense_entries:
+       total_expenses += expense.buyingprice
+    expense_context = {"expense" : int(total_expenses)}
+
+    sale_entries = Sale.objects.all()
+    sale_context = {"No_of_sales": sale_entries.count()}
+
+    total_revenue = 0
+    revenue_entries = Sale.objects.all()
+    for revenue in revenue_entries:
+        total_revenue += revenue.total_price
+       
+
+    
+    profit = total_revenue - total_expenses
+    profit_context = {"profit": int(profit)}   
+
+    revenue_context = {"total_revenue" : int(total_revenue)}  
+    context = {**revenue_context, **sale_context, **expense_context, **profit_context}
+      
+    return render(request, "pharmacy/dashboard.html", context)
+   
 
 
 class MedicineListView(ListView):
@@ -38,13 +62,13 @@ def create_sale(request):
             
 
             # Calculate the total price for the sale
-            total_price = medicine.price * quantity
+            total_price = medicine.saleprice * quantity
 
             # Calculate monthly revenue
             monthly_revenue =+ total_price
             # Create a Sale record
             sale = form.save(commit=False)
-            sale.prices = medicine.price  # Assign price
+            sale.prices = medicine.saleprice  # Assign price
             sale.total_price = total_price  # Assign total price
             sale.save()
 
@@ -102,7 +126,6 @@ class CustomerDeleteView(DeleteView):
     model = Customer
     template_name = 'pharmacy/customers/customer_confirm_delete.html'
     success_url = reverse_lazy('customer-list')    
-
 
 
 

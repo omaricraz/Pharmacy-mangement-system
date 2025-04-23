@@ -29,6 +29,8 @@ urlpatterns = [
     path('sales/<int:pk>/delete/', saleslistdelete.as_view(), name='sale_delete'),
 
 
+
+
    
 ]
 

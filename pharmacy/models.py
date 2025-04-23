@@ -6,14 +6,15 @@ from django.contrib.auth.models import User
 class Medicine(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    manufacturer = models.CharField(max_length=255)
+    supplier = models.CharField(max_length=255)
     batch_number = models.CharField(max_length=50, unique=True)
     quantity = models.IntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    saleprice = models.DecimalField(max_digits=10, decimal_places=2)
+    buyingprice = models.DecimalField(max_digits=10, decimal_places=2)
     expiry_date = models.DateField()
 
     def __str__(self):
-        return f"{self.name} - {self.batch_number}"
+        return f"{self.name} - {self.supplier}"
 
 
 # Customer Model
