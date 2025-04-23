@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -12,7 +13,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', dashboard, name='dashboard'),  # Map the root URL to dashboard_view
    
-
+    path('login/', auth_views.LoginView.as_view(template_name='registeration/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
    
     path('customers/', CustomerListView.as_view(), name='customer-list'),
     path('customers/new/', CustomerCreateView.as_view(), name='customer-create'),

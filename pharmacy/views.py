@@ -1,11 +1,14 @@
 from urllib import request
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Customer, Medicine, Sale, Finance
 from .forms import MedicineForm, CustomerForm, SaleForm 
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 # ===== Dashboard =====
+@login_required
 def dashboard(request):
 
     expense_entries = Medicine.objects.all()
@@ -30,29 +33,31 @@ def dashboard(request):
     revenue_context = {"total_revenue" : int(total_revenue)}  
     context = {**revenue_context, **sale_context, **expense_context, **profit_context}
       
-    return render(request, "pharmacy/dashboard.html", context)
+    return render(request, "front/dashboard.html", context)
    
 
-
-class MedicineListView(ListView):
+class MedicineListView(LoginRequiredMixin, ListView):
     model = Medicine
-    template_name = 'pharmacy/medicine/medicine_list.html'  # Path to the template
+    template_name = 'medicine/medicine_list.html'  # Path to the template
     context_object_name = 'medicines'    
 
+
 # Create Medicine View
-class MedicineCreateView(CreateView):
+class MedicineCreateView(LoginRequiredMixin, CreateView):
     model = Medicine
     form_class = MedicineForm
-    template_name = 'pharmacy/medicine/medicine_create.html'
+    template_name = 'medicine/medicine_create.html'
     success_url = reverse_lazy('medicine_list')
+
 
 # Edit Medicine View
-class MedicineUpdateView(UpdateView):
+class MedicineUpdateView(LoginRequiredMixin, UpdateView):
     model = Medicine
     form_class = MedicineForm
-    template_name = 'pharmacy/medicine/medicine_edit.html'
+    template_name = 'medicine/medicine_edit.html'
     success_url = reverse_lazy('medicine_list')
 
+@login_required
 def create_sale(request):
     if request.method == 'POST':
         form = SaleForm(request.POST, request.FILES)
@@ -80,51 +85,50 @@ def create_sale(request):
     else:
         form = SaleForm()
 
-    return render(request, 'pharmacy/sales/sale_create.html', {'form': form})
+    return render(request, 'sales/sale_create.html', {'form': form})
 
 
-class SaleListView(ListView):
+class SaleListView(LoginRequiredMixin, ListView):
     model = Sale
-    template_name = 'pharmacy/sales/sale_list.html'
+    template_name = 'sales/sale_list.html'
     context_object_name = 'sales'
     
 
-
 # Delete View for sales-list
-class saleslistdelete(DeleteView):
+class saleslistdelete(LoginRequiredMixin, DeleteView):
     model = Sale
-    template_name = 'pharmacy/sales/sale_delete.html'
+    template_name = 'sales/sale_delete.html'
     success_url = reverse_lazy('sale_list')        
      
-  
-
 
 # CustomerList View (Read)
-class CustomerListView(ListView):
+class CustomerListView(LoginRequiredMixin, ListView):
     model = Customer
-    template_name = 'pharmacy/customers/customer_list.html'
+    template_name = 'customers/customer_list.html'
     context_object_name = 'customers'
 
     
 
 # Create View
-class CustomerCreateView(CreateView):
+class CustomerCreateView(LoginRequiredMixin, CreateView):
     model = Customer
     form_class = CustomerForm
-    template_name = 'pharmacy/customers/customer_form.html'
+    template_name = 'customers/customer_form.html'
     success_url = reverse_lazy('customer-list')
+
 
 # Update View
-class CustomerUpdateView(UpdateView):
+class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     model = Customer
     form_class = CustomerForm
-    template_name = 'pharmacy/customers/customer_form.html'
+    template_name = 'customers/customer_form.html'
     success_url = reverse_lazy('customer-list')
 
+
 # Delete View
-class CustomerDeleteView(DeleteView):
+class CustomerDeleteView(LoginRequiredMixin, DeleteView):
     model = Customer
-    template_name = 'pharmacy/customers/customer_confirm_delete.html'
+    template_name = 'customers/customer_confirm_delete.html'
     success_url = reverse_lazy('customer-list')    
 
 
