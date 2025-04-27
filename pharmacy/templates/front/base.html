@@ -5,50 +5,145 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pharmacy Management</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    
+    <style>
+        body.light-mode {
+            background-color: #f8f9f3;
+            color: #212529;
+        }
+        body.dark-mode {
+            background-color: #212529;
+            color: #f8f9fa;
+        }
+    
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #343a40;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+        .sidebar-collapsed {
+            width: 0;
+            padding-top: 60px;
+        }
+        .sidebar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #f8f9fa;
+            display: block;
+            transition: 0.2s;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+    
+        #main {
+            margin-left: 250px;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+        #main.expanded {
+            margin-left: 0;
+        }
+        .content-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    
+        .hamburger {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            font-size: 24px;
+            color: #f8f9fa;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+        .toggle-mode {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            background: none;
+            border: none;
+            color: #f8f9fa;
+            z-index: 1001;
+        }
+    
+        /* Ensure text and background change inside content */
+        .content, .content * {
+            color: inherit;
+            background-color: inherit;
+        }
+    </style>
+    
 </head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'dashboard' %}">Pharmacy Management</a>
-        
-        <!-- This button appears on small screens -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <!-- Navbar links -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'medicine_list' %}">Medicine</a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'customer-list' %}">Customers</a>
-                </li>
+<body class="dark-mode">
+    <!-- Hamburger button -->
+    <button class="hamburger" id="toggleSidebar">
+        ☰
+    </button>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'sale_list' %}">Sales</a>
-                </li>
+    <!-- Toggle Light/Dark Mode -->
+    <button class="toggle-mode" id="toggleMode">
+        🌙
+    </button>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'ticket_list' %}">Ticket</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Page content -->
-    <div class="container mt-4">
-        {% block content %}
-        {% endblock %}
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="{% url 'medicine_list' %}"><i class="fas fa-pills"></i> Medicine</a>
+        <a href="{% url 'customer-list' %}"><i class="fas fa-users"></i> Customers</a>
+        <a href="{% url 'sale_list' %}"><i class="fas fa-cash-register"></i> Sales</a>
+        <a href="{% url 'ticket_list' %}"><i class="fas fa-ticket-alt"></i> Tickets</a>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Main Content -->
+    <div id="main" class="content">
+        <div class="content-inner">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <!-- Bootstrap and FontAwesome -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your_fontawesome_kit_code.js" crossorigin="anonymous"></script> <!-- Replace with your kit -->
+    <script>
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const main = document.getElementById('main');
+        const toggleModeBtn = document.getElementById('toggleMode');
+        const body = document.body;
+    
+        toggleSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-collapsed');
+            main.classList.toggle('expanded');
+        });
+    
+        toggleModeBtn.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+    
 </body>
+
 </html>
