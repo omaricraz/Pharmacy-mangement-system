@@ -2,6 +2,7 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+
 # Medicine Model
 class Medicine(models.Model):
     name = models.CharField(max_length=255)
@@ -30,8 +31,8 @@ class Customer(models.Model):
 
 # Sale Model
 class Sale(models.Model):
-    Customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    Customer = models.ForeignKey(Customer, on_delete=models.CASCADE, default= "Choose Patient")
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, default="Choose Medicine")
     quantity = models.IntegerField()
     prices = models.DecimalField(max_digits=10, decimal_places=2)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)  # Add this field
@@ -40,10 +41,24 @@ class Sale(models.Model):
 
     def __str__(self):
         return f"{self.customer.name} - {self.medicine.name}"
-    
+      
 
-class Finance(models.Model):
-    Revenue = models.IntegerField()
-    
-    
 
+class Tickets(models.Model):
+    DAY_TIME_CHOICES = [
+    ('Morning', 'Morning'),
+    ('Afternoon', 'Afternoon'),
+    ('Evening', 'Evening'),
+]        
+    
+    AVAILABLE_DOCTORS = [
+    ('Jamac', 'Jamac'),
+    ('Ismail', 'Ismail'),
+    ('Khalid', 'Khalid'),
+]    
+    name = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="tickets_name", blank=True, null=True) 
+    day_time = models.CharField(max_length=100, choices=DAY_TIME_CHOICES, default='Morning')
+    doctor = models.CharField(max_length=100, choices=AVAILABLE_DOCTORS, default='Ismail')
+
+    def __str__(self):
+        return f"Ticket {self.id} - {self.name}"

@@ -40,8 +40,8 @@
                 {% endif %}
             </td>
              <td>   
-             <a href="{% url 'sale_delete' sale.pk %}">Delete</a>
-
+             <a href="{% url 'sale_edit' sale.id %}">Edit</a> |
+             <a href="{% url 'sale_delete' sale.id %}">Delete</a>
             </td>
         </tr>
         {% endfor %}

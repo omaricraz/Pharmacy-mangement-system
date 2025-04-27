@@ -1,5 +1,5 @@
 from django import forms
-from .models import Medicine, Customer, Sale
+from .models import Medicine, Customer, Sale, Tickets
 
 
 
@@ -18,6 +18,16 @@ class SaleForm(forms.ModelForm):
     class Meta:
         model = Sale
         fields = ['Customer', 'medicine', 'quantity','prescription']
+
+class TicketForm(forms.ModelForm):
+    class Meta:
+        model = Tickets
+        fields = ['name', 'day_time','doctor']      
+
+
+
+
+
 
 
 

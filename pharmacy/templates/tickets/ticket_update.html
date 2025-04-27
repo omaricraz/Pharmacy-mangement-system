@@ -1,7 +1,7 @@
 {% extends 'front/base.html' %}
 
 {% block content %}
-<h1>{% if object %}Edit Customer{% else %}Add New Customer{% endif %}</h1>
+<h1>{% if object %}Edit Ticket{% else %}Add New Ticket{% endif %}</h1>
 
 <form method="POST">
     {% csrf_token %}
@@ -9,5 +9,5 @@
     <button type="submit">Save</button>
 </form>
 
-<a href="{% url 'medicine_list' %}">Back to List</a>
+<a href="{% url 'ticket_list' %}">Back to List</a>
 {% endblock %}

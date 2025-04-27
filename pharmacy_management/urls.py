@@ -1,12 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import include, path
+from django.urls import  path
 from django.conf import settings
 from django.conf.urls.static import static
 from pharmacy.views import (
      
     CustomerListView, MedicineListView, create_sale, MedicineCreateView, MedicineUpdateView,
       SaleListView, CustomerCreateView,  CustomerDeleteView, CustomerUpdateView, saleslistdelete, dashboard,
+      TicketCreateView, TicketListView, TicketDeleteView, TicketUpdateView, MedicineDeleteView, SaleUpdateView
 
 )
 urlpatterns = [
@@ -24,16 +25,22 @@ urlpatterns = [
     path('Medicine/', MedicineListView.as_view(), name='medicine_list'),
     path('Medicine/add/', MedicineCreateView.as_view(), name='medicine_add'),
     path('Medicine/<int:pk>/edit/', MedicineUpdateView.as_view(), name='medicine_edit'),
+    path('Medicine/<int:pk>/delete/', MedicineDeleteView.as_view(), name = "medicine_delete"),
 
 
     path('create-sale/', create_sale, name='create_sale'),
     path('sales/', SaleListView.as_view(), name='sale_list'),
     path('sales/<int:pk>/delete/', saleslistdelete.as_view(), name='sale_delete'),
-
-
-
-
+    path('sales/<int:pk>/edit/', SaleUpdateView.as_view(), name='sale_edit'),
    
+    path('ticket/', TicketListView.as_view(), name='ticket_list'),
+    path('ticket_create/', TicketCreateView.as_view(), name = 'ticket_create'),
+    path('ticket/<int:pk>/edit/', TicketUpdateView.as_view(), name='ticket_update'),
+    path('ticket/<int:pk>/delete/', TicketDeleteView.as_view(), name='ticket_delete'),
+    
+
+
+
 ]
 
 

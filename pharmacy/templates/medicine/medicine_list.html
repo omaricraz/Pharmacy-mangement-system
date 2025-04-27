@@ -30,8 +30,7 @@
                 <td>{{ medicine.buyingprice }}</td>
                 <td>{{ medicine.expiry_date }}</td>
                 <td>
-                    <a href="{% url 'medicine_edit' medicine.id %}">Edit</a>
-                </td>
+                    <a href="{% url 'medicine_edit' medicine.id %}">Edit </a> 
             </tr>
             {% endfor %}
         </tbody>
